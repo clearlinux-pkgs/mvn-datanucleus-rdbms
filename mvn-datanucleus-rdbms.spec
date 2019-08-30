@@ -4,14 +4,17 @@
 #
 Name     : mvn-datanucleus-rdbms
 Version  : 3.2.9
-Release  : 1
+Release  : 2
 URL      : https://repo1.maven.org/maven2/org/datanucleus/datanucleus-rdbms/3.2.9/datanucleus-rdbms-3.2.9.jar
 Source0  : https://repo1.maven.org/maven2/org/datanucleus/datanucleus-rdbms/3.2.9/datanucleus-rdbms-3.2.9.jar
-Source1  : https://repo1.maven.org/maven2/org/datanucleus/datanucleus-rdbms/3.2.9/datanucleus-rdbms-3.2.9.pom
+Source1  : https://repo1.maven.org/maven2/org/datanucleus/datanucleus-rdbms/3.2.1/datanucleus-rdbms-3.2.1.jar
+Source2  : https://repo1.maven.org/maven2/org/datanucleus/datanucleus-rdbms/3.2.1/datanucleus-rdbms-3.2.1.pom
+Source3  : https://repo1.maven.org/maven2/org/datanucleus/datanucleus-rdbms/3.2.9/datanucleus-rdbms-3.2.9.pom
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : Apache-2.0
 Requires: mvn-datanucleus-rdbms-data = %{version}-%{release}
+Requires: mvn-datanucleus-rdbms-license = %{version}-%{release}
 
 %description
 RDBMS Plugin
@@ -26,16 +29,33 @@ Group: Data
 data components for the mvn-datanucleus-rdbms package.
 
 
+%package license
+Summary: license components for the mvn-datanucleus-rdbms package.
+Group: Default
+
+%description license
+license components for the mvn-datanucleus-rdbms package.
+
+
 %prep
+%setup -q -n META-INF
 
 %build
 
 %install
+mkdir -p %{buildroot}/usr/share/package-licenses/mvn-datanucleus-rdbms
+cp LICENSE.txt %{buildroot}/usr/share/package-licenses/mvn-datanucleus-rdbms/LICENSE.txt
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/org/datanucleus/datanucleus-rdbms/3.2.9
-cp %{SOURCE0} %{buildroot}/usr/share/java/.m2/repository/org/datanucleus/datanucleus-rdbms/3.2.9
+cp %{SOURCE0} %{buildroot}/usr/share/java/.m2/repository/org/datanucleus/datanucleus-rdbms/3.2.9/datanucleus-rdbms-3.2.9.jar
+
+mkdir -p %{buildroot}/usr/share/java/.m2/repository/org/datanucleus/datanucleus-rdbms/3.2.1
+cp %{SOURCE1} %{buildroot}/usr/share/java/.m2/repository/org/datanucleus/datanucleus-rdbms/3.2.1/datanucleus-rdbms-3.2.1.jar
+
+mkdir -p %{buildroot}/usr/share/java/.m2/repository/org/datanucleus/datanucleus-rdbms/3.2.1
+cp %{SOURCE2} %{buildroot}/usr/share/java/.m2/repository/org/datanucleus/datanucleus-rdbms/3.2.1/datanucleus-rdbms-3.2.1.pom
 
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/org/datanucleus/datanucleus-rdbms/3.2.9
-cp %{SOURCE1} %{buildroot}/usr/share/java/.m2/repository/org/datanucleus/datanucleus-rdbms/3.2.9
+cp %{SOURCE3} %{buildroot}/usr/share/java/.m2/repository/org/datanucleus/datanucleus-rdbms/3.2.9/datanucleus-rdbms-3.2.9.pom
 
 
 %files
@@ -43,5 +63,11 @@ cp %{SOURCE1} %{buildroot}/usr/share/java/.m2/repository/org/datanucleus/datanuc
 
 %files data
 %defattr(-,root,root,-)
+/usr/share/java/.m2/repository/org/datanucleus/datanucleus-rdbms/3.2.1/datanucleus-rdbms-3.2.1.jar
+/usr/share/java/.m2/repository/org/datanucleus/datanucleus-rdbms/3.2.1/datanucleus-rdbms-3.2.1.pom
 /usr/share/java/.m2/repository/org/datanucleus/datanucleus-rdbms/3.2.9/datanucleus-rdbms-3.2.9.jar
 /usr/share/java/.m2/repository/org/datanucleus/datanucleus-rdbms/3.2.9/datanucleus-rdbms-3.2.9.pom
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/mvn-datanucleus-rdbms/LICENSE.txt
